@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "loom.build": {
+      "version": "0.3.0",
+      "commands": [
+        "loom"
+      ],
+      "rollForward": false
+    }
+  }
+}

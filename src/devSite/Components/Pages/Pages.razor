@@ -1,0 +1,30 @@
+@page "/{*fileNmae:nonfile}"
+@using MyLittleContentEngine
+@using MyLittleContentEngine.Models
+@using MyLittleContentEngine.Services.Content
+
+@inject ContentEngineOptions ContentEngineOptions
+@inject IMarkdownContentService<BlogFrontMatter> MarkdownContentService
+
+@code {
+    private MarkdownContentPage<BlogFrontMatter>? _post;
+    private string? _postContent;
+    [Parameter] public required string FileName { get; init; } = string.Empty;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var fileName = FileName;
+        if (string.IsNullOrEmpty(fileName))
+        {
+            fileName = "index";
+        }
+
+        var page = await MarkdownContentService.GetRenderedContentPageByUrlOrDefault(fileName);
+        if (page == null)
+        {
+            return;
+        }
+        _post = page.Value.Page;
+        _postContent = page.Value.HtmlContent;
+    }
+}
