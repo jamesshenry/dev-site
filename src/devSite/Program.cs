@@ -11,14 +11,14 @@ builder.Services.AddRazorComponents();
 builder
     .Services.AddContentEngineService(_ => new ContentEngineOptions
     {
-        SiteTitle = "Test Site",
-        SiteDescription = "A test site using MyLittleContentEngine",
+        SiteTitle = "My Little Content Engine",
+        SiteDescription = "An Inflexible Content Engine for .NET",
         ContentRootPath = "Content",
     })
     .WithMarkdownContentService(_ => new MarkdownContentOptions<BlogFrontMatter>()
     {
-        ContentPath = "Content",
-        BasePageUrl = string.Empty,
+        ContentPath = "Content/blog",
+        BasePageUrl = "blog",
     });
 
 builder.Services.AddMonorailCss();
