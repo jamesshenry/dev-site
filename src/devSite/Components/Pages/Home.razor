@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using System.Collections.Immutable
+@using Microsoft.AspNetCore.Components.Sections
 @using MyLittleContentEngine
 @using MyLittleContentEngine.Models
 @using MyLittleContentEngine.Services.Content
@@ -8,29 +9,86 @@
 
 <PageTitle>Home</PageTitle>
 
+<section class="grid grid-cols-1 md:grid-cols-12 gap-16">
 
+    @* Left: The Bio *@
+    <div class="md:col-span-7">
+        <h1 class="text-5xl md:text-6xl mb-8 leading-none hero-title">
+            Developer working in <span class="text-blue-600 underline">Logistics</span> & <span
+            class="text-slate-400">Systems.</span>
+        </h1>
 
-@if (_pages == null)
-{
-    <p>Loading...</p>
-    return;
-}
+        <div class="space-y-6 text-slate-600 text-lg max-w-xl">
+            <p>
+                I build software for complex supply chains using <strong>WinForms</strong> and <strong>.NET</strong>.
+                I treat my code like I treated my servers during my 5 years as a <strong>Sysadmin</strong>:
+                reliability and performance aren't features, they're the baseline.
+            </p>
+            <p>
+                I don't chase every new JavaScript framework. I focus on building resilient
+                internal tools and CLI utilities that make life easier for users (and usually just me).
+            </p>
+        </div>
+    </div>
 
-<h1 class="text-4xl font-bold pb-4">Welcome @ContentEngineOptions.SiteTitle!</h1>
+    @* Right: The Metadata *@
+    <div class="md:col-span-5 space-y-6">
+        <div class="sys-card">
+            <span class="sys-label">System Specs // Credentials</span>
+            <div class="font-mono text-xs space-y-2">
+                <div class="flex justify-between border-dot pb-1">
+                    <span>Degree:</span>
+                    <span>BEng Software Engineering</span>
+                </div>
+                <div class="flex justify-between border-dot pb-1">
+                    <span>Classification:</span>
+                    <span class="text-slate-400">First Class (Honours)</span>
+                </div>
+                <div class="flex justify-between border-dot pb-1">
+                    <span>Experience:</span>
+                    <span>5y Sysadmin / 3y Dev</span>
+                </div>
+            </div>
+        </div>
 
-<ul class="list-disc pl-6 space-y-2">
-    @foreach (var p in _pages.Where(p => p.Url != "/index").OrderByDescending(i => i.FrontMatter.Date))
-    {
-        <li><a href="@p.Url">@p.FrontMatter.Title</a></li>
-    }
-</ul>
+        <div class="sys-card bg-slate-950 text-white border-none">
+            <span class="sys-label text-slate-500">Active_Environment</span>
+            <ul class="font-mono text-xs space-y-1">
+                <li>> .NET 10 / C#</li>
+                <li>> Postgres || SQLite || SQL Server</li>
+                <li>> WinForms Modernization</li>
+                <li>> CLI Tooling</li>
+                <li>> Blazor</li>
+            </ul>
+        </div>
+    </div>
+</section>
 
+@* Blog Preview Section *@
+<section class="mt-32">
+    <div class="flex justify-between items-end mb-8">
+        <h2 class="text-2xl font-bold">Recent Notes</h2>
+        <a href="blog" class="text-xs font-mono text-blue-600 hover:underline">ls -al blog/</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        @foreach (var p in _pages)
+        {
+            <NavLink href="@p.Url" class="sys-card group">
+                <span class="sys-label">@p.FrontMatter.Date.ToShortDateString()</span>
+                <h3 class="text-xl group-hover:text-blue-600">@p.FrontMatter.Title</h3>
+                <p class="text-sm text-slate-500 mt-2">@p.FrontMatter.Description</p>
+            </NavLink>
+        }
+    </div>
+</section>
 @code {
-    private ImmutableList<MarkdownContentPage<BlogFrontMatter>>? _pages;
+    private ImmutableList<MarkdownContentPage<BlogFrontMatter>> _pages = [];
 
     protected override async Task OnInitializedAsync()
     {
         _pages = await MarkdownContentService.GetAllContentPagesAsync();
+
         await base.OnInitializedAsync();
     }
 
