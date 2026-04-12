@@ -29,7 +29,7 @@ builder
     .WithMarkdownContentService(_ => new MarkdownContentOptions<BlogFrontMatter>()
     {
         ContentPath = "Content/blog",
-        BasePageUrl = "blog",
+        BasePageUrl = "/blog",
     });
 
 builder.Services.AddMonorailCss(_ => new MonorailCssOptions
@@ -63,7 +63,7 @@ builder.Services.AddMonorailCss(_ => new MonorailCssOptions
 });
 var app = builder.Build();
 
-app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+// app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
 
 app.UseAntiforgery();

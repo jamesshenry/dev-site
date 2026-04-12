@@ -35,20 +35,21 @@ Set-Content -Path $outputPath -Value $contextBlock
 
 # Extension -> language mapping
 $languageMap = @{
-    '.cs'   = 'csharp'
-    '.ps1'  = 'powershell'
-    '.json' = 'json'
-    '.xml'  = 'xml'
-    '.yml'  = 'yaml'
-    '.yaml' = 'yaml'
-    '.md'   = 'markdown'
-    '.sh'   = 'bash'
-    '.ts'   = 'typescript'
-    '.js'   = 'javascript'
+    '.cs'    = 'csharp'
+    '.ps1'   = 'powershell'
+    '.json'  = 'json'
+    '.xml'   = 'xml'
+    '.yml'   = 'yaml'
+    '.yaml'  = 'yaml'
+    '.md'    = 'markdown'
+    '.sh'    = 'bash'
+    '.ts'    = 'typescript'
+    '.js'    = 'javascript'
+    '.razor' = 'razor'
 }
 
 # Grab all files, filtering out the excluded directories
-$allFiles = Get-ChildItem -Path $sourceDirectory -Recurse -File -Include *.cs, *.ps1, *.json, *.xml, *.yml, *.yaml, *.md, *.sh, *.ts, *.js | Where-Object {
+$allFiles = Get-ChildItem -Path $sourceDirectory -Recurse -File -Include *.cs, *.ps1, *.json, *.xml, *.yml, *.yaml, *.md, *.sh, *.ts, *.js, *.razor | Where-Object {
     $_.FullName -notmatch $excludePattern
 }
 
