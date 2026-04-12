@@ -29,7 +29,7 @@ builder
     .WithMarkdownContentService(_ => new MarkdownContentOptions<BlogFrontMatter>()
     {
         ContentPath = "Content/blog",
-        BasePageUrl = "blog",
+        BasePageUrl = "/blog",
     });
 
 builder.Services.AddMonorailCss(_ => new MonorailCssOptions
@@ -42,34 +42,28 @@ builder.Services.AddMonorailCss(_ => new MonorailCssOptions
                 .Theme.AddFontFamily("sans", "Geist, Inter, sans-serif")
                 .AddFontFamily("mono", "JetBrains Mono, monospace"),
 
-            Applies = defaultSettings
-                .Applies.Add("body", "bg-white text-slate-900 selection:bg-blue-100 font-sans")
-                .Add("h1, h2, h3, h4", "focus:outline-none font-bold tracking-tight")
-                .Add(
-                    ".nav-link",
-                    "font-mono text-[11px] uppercase tracking-wider text-slate-500 hover:text-slate-950 transition-colors relative"
-                )
-                .Add(".nav-link.active", "text-slate-950 font-bold")
-                .Add(".nav-link.active::before", "content-['>'] absolute -left-4 text-blue-600")
-                .Add(
-                    ".sys-card",
-                    "bg-white border border-slate-200 p-6 hover:border-slate-400 transition-all"
-                )
-                .Add(
-                    ".sys-label",
-                    "font-mono text-[10px] uppercase tracking-tighter text-slate-400 mb-1 block"
-                )
-                .Add(
-                    ".btn-sys",
-                    "font-mono text-xs border border-slate-950 px-4 py-2 hover:bg-slate-950 hover:text-white transition-all inline-block cursor-pointer"
-                )
-                // 4. Utilities
-                .Add(".border-dot", "border-b border-dotted border-slate-300"),
+            IncludePreflight = true,
+
+            Applies = new Dictionary<string, string>
+            {
+                { "body", "bg-white text-base-900 dark:bg-base-950 dark:text-base-100 font-sans transition-colors duration-300" },
+                { "h1, h2, h3, h4", "focus:outline-none font-bold tracking-tight" },
+                { ".prose", "dark:prose-invert max-w-none" },
+
+                // Navigation & Layout
+                { ".nav-link", "font-mono text-[11px] font-bold text-base-400 hover:text-base-900 dark:hover:text-base-100 transition-colors uppercase tracking-tight" },
+                { ".border-dot", "border-b border-dotted border-base-200 dark:border-base-800" },
+
+                // UI Components
+                { ".sys-label", "inline-block bg-base-100 dark:bg-base-900 text-[10px] font-mono font-bold px-2 py-0.5 rounded text-base-500 mb-4 uppercase tracking-wider border border-base-200 dark:border-base-800" },
+                { ".sys-card", "block p-6 border border-base-200 dark:border-base-800 rounded-lg hover:border-primary-500/30 transition-all bg-white/50 dark:bg-base-900/50 backdrop-blur-sm shadow-sm" },
+                { ".btn-sys", "inline-block font-mono text-[11px] font-bold border-2 border-base-900 dark:border-base-100 px-4 py-2 hover:bg-base-900 hover:text-white dark:hover:bg-base-100 dark:hover:text-base-950 transition-colors tracking-tighter" }
+            }.ToImmutableDictionary()
         },
 });
 var app = builder.Build();
 
-app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
+// app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
 
 app.UseAntiforgery();

@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using System.Collections.Immutable
-@using Microsoft.AspNetCore.Components.Sections
 @using MyLittleContentEngine
 @using MyLittleContentEngine.Models
 @using MyLittleContentEngine.Services.Content
@@ -8,16 +7,19 @@
 @inject IMarkdownContentService<BlogFrontMatter> MarkdownContentService
 
 <PageTitle>Home</PageTitle>
-<header class="mb-16">
-    <h1 class="text-3xl font-bold mb-2">James Henry</h1>
-    <p class="text-lg text-slate-600 leading-snug">
-        Software developer focused on logistics and developer tooling. Based in Worcestershire, UK.
-        I spend my time modernising legacy monoliths and building opinionated tools for the terminal. I value clean
-        paradigms and automated workflows.
-    </p>
-    <p class="mt-4 text-sm text-slate-500 italic">
-        8 years in technical roles: 5y Sysadmin / 3y Dev.<br /> BSc (Hons) 1st Class - Software Engineering.
-    </p>
+<header class="mb-16 flex flex-col md:flex-row gap-8 items-start">
+    <div class="flex-grow">
+        <h1 class="text-3xl font-bold mb-2">James Henry</h1>
+        <p class="text-lg text-base-600 dark:text-base-400 leading-snug">
+            Software developer focused on logistics and developer tooling. <br />
+            Based in Worcestershire, UK.<br />
+            I spend my time modernising legacy monoliths and building opinionated tools for the terminal. <br />
+            I value clean paradigms and automated workflows.
+        </p>
+        <p class="mt-4 text-sm text-base-500 dark:text-base-400 italic">
+            8 years in technical roles: 5y Sysadmin / 3y Dev.<br /> BSc (Hons) 1st Class - Software Engineering.
+        </p>
+    </div>
 </header>
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
@@ -26,19 +28,19 @@
         <span class="sys-label">System_Specs</span>
         <div class="font-mono text-[11px] space-y-3 mt-4 uppercase">
             <div class="flex justify-between border-dot pb-1">
-                <span class="text-slate-400">Stack</span>
+                <span class="text-base-400 dark:text-base-500">Stack</span>
                 <span>WinForms | Blazor | .NET | Postgres</span>
             </div>
             <div class="flex justify-between border-dot pb-1">
-                <span class="text-slate-400">Domain</span>
+                <span class="text-base-400 dark:text-base-500">Domain</span>
                 <span>LOGISTICS | MANUFACTURING | LEGACY MODERNISATION | AUTOMATIONS</span>
             </div>
             <div class="flex justify-between border-dot pb-1">
-                <span class="text-slate-400">Tooling</span>
+                <span class="text-base-400 dark:text-base-500">Tooling</span>
                 <span>CI/CD | DX TOols</span>
             </div>
             <div class="flex justify-between border-dot pb-1">
-                <span class="text-slate-400">Status</span>
+                <span class="text-base-400 dark:text-base-500">Status</span>
                 <span>Engineering at Logistics Firm</span>
             </div>
         </div>
@@ -50,14 +52,14 @@
         <div class="mt-4 space-y-4">
             <div>
                 <a href="https://github.com/jamesshenry/loom"
-                   class="font-bold hover:text-blue-600 underline underline-offset-4 decoration-slate-200">Loom</a>
-                <p class="text-xs text-slate-500 mt-1">Opinionated .NET build tool for GitHub/NuGet releases. Dogfooded.
+                   class="font-bold hover:text-primary-600 dark:hover:text-primary-400 underline underline-offset-4 decoration-base-200 dark:decoration-base-800">Loom</a>
+                <p class="text-xs text-base-500 mt-1">Opinionated .NET build tool for GitHub/NuGet releases. Dogfooded.
                 </p>
             </div>
             <div>
                 <a href="https://github.com/jamesshenry/typical"
-                   class="font-bold hover:text-blue-600 underline underline-offset-4 decoration-slate-200">Typical</a>
-                <p class="text-xs text-slate-500 mt-1">Terminal-based typing game. Monkeytype for the TUI.</p>
+                   class="font-bold hover:text-primary-600 dark:hover:text-primary-400 underline underline-offset-4 decoration-base-200 dark:decoration-base-800">Typical</a>
+                <p class="text-xs text-base-500 mt-1">Terminal-based typing game. Monkeytype for the TUI.</p>
             </div>
         </div>
     </section>
@@ -67,20 +69,21 @@
 <section class="mt-32">
     <div class="flex justify-between items-end mb-8">
         <h2 class="text-2xl font-bold">Recent Notes</h2>
-        <a href="blog" class="text-xs font-mono text-blue-600 hover:underline">ls -al blog/</a>
-    </div>
+        <a href="/blog" class="text-xs font-mono text-primary-600 dark:text-primary-400 hover:underline">ls -al
+            blog/</a>
+        </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        @foreach (var p in _pages)
-        {
-            <NavLink href="@p.Url" class="sys-card group">
-                <span class="sys-label">@p.FrontMatter.Date.ToShortDateString()</span>
-                <h3 class="text-xl group-hover:text-blue-600">@p.FrontMatter.Title</h3>
-                <p class="text-sm text-slate-500 mt-2">@p.FrontMatter.Description</p>
-            </NavLink>
-        }
-    </div>
-</section>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @foreach (var p in _pages)
+            {
+                <NavLink href="@p.Url" class="sys-card group">
+                    <span class="sys-label">@p.FrontMatter.Date.ToShortDateString()</span>
+                    <h3 class="text-xl group-hover:text-primary-600 dark:group-hover:text-primary-400">@p.FrontMatter.Title</h3>
+                    <p class="text-sm text-base-500 mt-2">@p.FrontMatter.Description</p>
+                </NavLink>
+            }
+        </div>
+    </section>
 @code {
     private ImmutableList<MarkdownContentPage<BlogFrontMatter>> _pages = [];
 
