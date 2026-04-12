@@ -7,7 +7,7 @@ public class BlogFrontMatter : IFrontMatter
     public string? Uid { get; init; } = null;
 
     public DateTime Date { get; init; } = DateTime.Now;
-    public bool IsDraft { get; init; } = false;
+    public bool IsDraft { get; init; } = true;
     public string[] Tags { get; init; } = [];
     public string? RedirectUrl { get; init; }
     public string? Section { get; init; }

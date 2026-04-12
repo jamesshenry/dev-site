@@ -6,7 +6,7 @@ tags:
 
 - introduction
 - welcome
-isDraft: true
+is_draft: true
 ---
 
 Welcome to my new content site! This is my first post using MyLittleContentEngine.

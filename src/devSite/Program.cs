@@ -71,6 +71,9 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
+#if DEBUG
+app.MapStaticAssets();
+#endif
 app.MapRazorComponents<App>();
 app.UseMonorailCss();
 await app.RunOrBuildContent(args);
