@@ -38,7 +38,7 @@ jobs:
                   DOTNET_CLI_TELEMETRY_OPTOUT: true
               run: |
                   dotnet build
-                  dotnet run --project ${{ env.WEBAPP_PATH }}${{env.WEBAPP_CSPROJ}} --configuration Release -- build "/dev-site/" "../../${{ env.OUTPUT_PATH }}"
+                  dotnet run --project ${{ env.WEBAPP_PATH }}${{env.WEBAPP_CSPROJ}} --configuration Release -- build "/" "../../${{ env.OUTPUT_PATH }}"
 
             - name: Setup Pages
               uses: actions/configure-pages@v4

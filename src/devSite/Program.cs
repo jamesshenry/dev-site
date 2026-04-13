@@ -20,7 +20,7 @@ builder
     .WithMarkdownContentService(_ => new MarkdownContentOptions<BlogFrontMatter>()
     {
         ContentPath = "Content/blog",
-        BasePageUrl = "/blog",
+        BasePageUrl = "/blog/post",
     });
 
 builder.Services.AddMonorailCss(_ => new MonorailCssOptions
@@ -71,6 +71,9 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
+#if DEBUG
+app.MapStaticAssets();
+#endif
 app.MapRazorComponents<App>();
 app.UseMonorailCss();
 await app.RunOrBuildContent(args);
