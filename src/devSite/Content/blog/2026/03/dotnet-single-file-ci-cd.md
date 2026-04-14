@@ -3,7 +3,7 @@ title: Single File-based app CI/CD in .NET
 description: "With .NET 10, perhaps a single file app build.cs is all you need."
 date: 2026-03-21
 tags: ["c#", "dotnet", "ci-cd", "build-scripts"]
-is_draft: true
+is_draft: false
 ---
 
 Now that we've had .NET 10 for a decent amount of time, I thought I'd share the success I've had in using a single file-based app as my build system instead of the traditional project-based alternatives like [NUKE](https://nuke.build/) and [Cake](https://cakebuild.net/). Both of these are great tools, but I found the requirement of learning a DSL on top of C# as well as bringing along all of the tooling a bit unnecessary for smaller projects
