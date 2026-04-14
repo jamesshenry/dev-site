@@ -1,4 +1,4 @@
-@page "/blog/post/{*fileName:nonfile}"
+@page "/blog/{*fileName:nonfile}"
 
 @using MyLittleContentEngine.Models
 @using MyLittleContentEngine.Services.Content
@@ -17,7 +17,7 @@
     <header>
         <h1 class="text-4xl font-bold"> @_post.FrontMatter.Title</h1>
     </header>
-
+<br/>
     <div class="prose max-w-full">
         @((MarkupString)_postContent)
     </div>

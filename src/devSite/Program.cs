@@ -20,22 +20,10 @@ builder
     .WithMarkdownContentService(_ => new MarkdownContentOptions<BlogFrontMatter>()
     {
         ContentPath = "Content/blog",
-        BasePageUrl = "/blog/post",
+        BasePageUrl = "/blog",
     });
 
-builder.Services.AddMonorailCss(_ => new MonorailCssOptions
-{
-    ColorScheme = new AlgorithmicColorScheme { PrimaryHue = 220, BaseColorName = ColorNames.Slate },
-    CustomCssFrameworkSettings = defaultSettings =>
-        defaultSettings with
-        {
-            Theme = defaultSettings
-                .Theme.AddFontFamily("sans", "Geist, Inter, sans-serif")
-                .AddFontFamily("mono", "JetBrains Mono, monospace"),
-
-            IncludePreflight = true,
-
-            Applies = new Dictionary<string, string>
+var customApplies = new Dictionary<string, string>
             {
                 {
                     "body",
@@ -62,7 +50,19 @@ builder.Services.AddMonorailCss(_ => new MonorailCssOptions
                     ".btn-sys",
                     "inline-block font-mono text-[11px] font-bold border-2 border-base-900 dark:border-base-100 px-4 py-2 hover:bg-base-900 hover:text-white dark:hover:bg-base-100 dark:hover:text-base-950 transition-colors tracking-tighter"
                 },
-            }.ToImmutableDictionary(),
+            }.ToImmutableDictionary();
+builder.Services.AddMonorailCss(_ => new MonorailCssOptions
+{
+    ColorScheme = new AlgorithmicColorScheme { PrimaryHue = 220, BaseColorName = ColorNames.Slate },
+    CustomCssFrameworkSettings = defaultSettings =>
+        defaultSettings with
+        {
+            Theme = defaultSettings
+                .Theme.AddFontFamily("sans", "Geist, Inter, sans-serif")
+                .AddFontFamily("mono", "JetBrains Mono, monospace"),
+
+            IncludePreflight = true,
+Applies = defaultSettings.Applies.AddRange(customApplies)
         },
 });
 var app = builder.Build();
